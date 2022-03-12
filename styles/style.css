@@ -1,0 +1,158 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;1,700&display=swap");
+.hide {
+  display: none !important;
+}
+
+.col {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.flex-center {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.absolute-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.bg-pink {
+  background-color: #e4657a !important;
+}
+
+.bg-red {
+  background-color: #ff2929 !important;
+}
+
+.bg-orange {
+  background-color: #ffa600 !important;
+}
+
+.bg-yellow {
+  background-color: yellow !important;
+}
+
+.bg-green {
+  background-color: #3dd83d !important;
+}
+
+.bg-blue {
+  background-color: deepskyblue !important;
+}
+
+.bg-purple {
+  background-color: #a144ad !important;
+}
+
+.bg-dark-blue {
+  background-color: #3c3cc0 !important;
+}
+
+.bg-black {
+  background-color: #1b1b1b !important;
+}
+
+.bg-white {
+  background-color: #ececec !important;
+}
+
+.pink {
+  color: #e4657a !important;
+}
+
+.red {
+  color: #ff2929 !important;
+}
+
+.orange {
+  color: #ffa600 !important;
+}
+
+.yellow {
+  color: yellow !important;
+}
+
+.green {
+  color: #3dd83d !important;
+}
+
+.blue {
+  color: deepskyblue !important;
+}
+
+.purple {
+  color: #a144ad !important;
+}
+
+.dark-blue {
+  color: #3c3cc0 !important;
+}
+
+.black {
+  color: #1b1b1b !important;
+}
+
+.white {
+  color: #ececec !important;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  list-style: none;
+}
+
+body {
+  font-family: 'Roboto', serif;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  min-height: 100vh;
+  width: 100vw;
+  background-color: steelblue;
+}
+
+canvas {
+  border: 20px solid black;
+  background-color: deepskyblue;
+}
+/*# sourceMappingURL=style.css.map */
