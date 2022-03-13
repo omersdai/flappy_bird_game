@@ -22,6 +22,48 @@ body {
   background-color: steelblue;
 }
 
+.game-header {
+  width: 475px;
+  font-size: 15px;
+  padding: 10px 20px;
+  .top-header {
+    display: flex;
+    align-items: center;
+
+    h1 {
+      width: 100%;
+      font-size: 40px;
+      text-align: center;
+    }
+  }
+
+  .score-header {
+    display: flex;
+  }
+
+  .game-score {
+    @include set-background(rgb(0, 81, 255));
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .bot-header {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .reset-btn {
+    @extend %btn;
+    @include set-background($darkBlue);
+  }
+}
+
 canvas {
   border: $border;
   background-color: $blue;

@@ -1,7 +1,13 @@
+const scoreEl = document.getElementById('gameScore');
+const bestScoreEl = document.getElementById('bestScore');
+const resetBtn = document.getElementById('resetBtn');
+
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 canvas.height = 600;
 canvas.width = 1000;
+
+const BEST_SCORE = 'flappyBirdBestScore';
 
 // Actions
 const [JUMP] = ['jump'];
@@ -10,13 +16,13 @@ const actionMap = {
   ' ': JUMP,
 };
 
-const gravity = 0.25;
+const gravity = 0.6;
 const frequency = 250;
 
 const staticPillar = {
   color: 'red',
   width: 100,
-  gap: 200,
+  gap: 180,
 };
 
 let bird;
@@ -24,8 +30,9 @@ let pillars;
 let distance;
 let score;
 let gameStatus;
+let interval;
 
-const [CONTINUE, END] = ['continue', 'end'];
+const [START, CONTINUE, END] = ['start', 'continue', 'end'];
 
 function createBird() {
   return {
@@ -35,27 +42,29 @@ function createBird() {
     color: 'black',
     dx: 0,
     dy: 0,
-    jump: -5,
+    jump: -10,
     speed: 2, // horizontal
   };
 }
 
-function addPillar() {
-  const pillar = {
+function createPillar() {
+  return {
     x: canvas.width + staticPillar.width,
     y: getRandomHeight(),
+    isPassed: false,
   };
-  pillars.push(pillar);
 }
 
 // Game
-function initializeGame() {
+function startGame() {
   bird = createBird();
-  pillars = [];
+  pillars = [createPillar()];
   score = 0;
   distance = 0;
   gameStatus = CONTINUE;
-  addPillar();
+
+  scoreEl.innerText = score;
+  bestScore = parseInt(localStorage.getItem(BEST_SCORE));
 
   update();
 }
@@ -65,7 +74,7 @@ function update() {
 
   if (distance >= frequency) {
     distance = 0;
-    addPillar();
+    pillars.push(createPillar());
   }
   moveObjects();
   detectCollusion();
@@ -74,7 +83,7 @@ function update() {
   drawPillars();
 
   if (gameStatus === CONTINUE) {
-    requestAnimationFrame(update);
+    interval = requestAnimationFrame(update);
   }
 }
 
@@ -104,16 +113,22 @@ function moveObjects() {
   bird.y += bird.dy;
 
   const pillar = pillars[0];
-  if (pillar.x + staticPillar.width < 0) {
-    pillars.shift();
-    console.log('pillar removed');
-  }
+  if (pillar.x + staticPillar.width < 0) pillars.shift();
+
   pillars.forEach((pillar) => {
     pillar.x -= bird.speed;
+    if (!pillar.isPassed && pillar.x + staticPillar.width / 2 < bird.x) {
+      scoreEl.innerText = ++score;
+      if (bestScore < score) {
+        bestScore = score;
+        bestScoreEl.innerText = bestScore;
+        localStorage.setItem(BEST_SCORE, bestScore);
+      }
+      pillar.isPassed = true;
+    }
   });
 
   distance += bird.speed;
-  // console.log(distance);
 }
 
 function detectCollusion() {
@@ -138,6 +153,10 @@ function hitPillar() {
   return false;
 }
 
+function initializeGame() {
+  if (!localStorage.getItem(BEST_SCORE)) localStorage.setItem(BEST_SCORE, '0');
+}
+
 document.addEventListener('keydown', (e) => {
   const action = actionMap[e.key];
 
@@ -146,6 +165,12 @@ document.addEventListener('keydown', (e) => {
       bird.dy = bird.jump;
       break;
   }
+});
+
+resetBtn.addEventListener('click', (e) => {
+  cancelAnimationFrame(interval);
+  e.target.blur();
+  startGame();
 });
 
 function getRandomHeight() {
