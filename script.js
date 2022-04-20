@@ -25,6 +25,8 @@ const staticPillar = {
   gap: 180,
 };
 
+const tick = 10;
+
 let bird;
 let pillars;
 let distance;
@@ -83,7 +85,7 @@ function update() {
   drawPillars();
 
   if (gameStatus === CONTINUE) {
-    interval = requestAnimationFrame(update);
+    setTimeout(() => interval = requestAnimationFrame(update), tick)
   }
 }
 
@@ -158,6 +160,8 @@ function initializeGame() {
 }
 
 document.addEventListener('keydown', (e) => {
+  // Avoid scrolling
+  e.preventDefault();
   const action = actionMap[e.key];
 
   switch (action) {
